@@ -1,0 +1,24 @@
+server:
+  port: 8091
+
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone:
+        - http://localhost:8761/eureka/
+
+    # Enable retry mechanism for failover
+    eurekaServerConnectTimeoutSeconds: 5  # Connection timeout
+    eurekaServerReadTimeoutSeconds: 5     # Read timeout
+    eurekaServerTotalConnections: 5
+    eurekaServerTotalConnectionsPerHost: 5
+    registryFetchIntervalSeconds: 10  # Refresh registry every 10 seconds
+
+  instance:
+    preferIpAddress: true  # Ensures better discovery
+    leaseRenewalIntervalInSeconds: 10  # Heartbeat interval
+    leaseExpirationDurationInSeconds: 30  # Timeout before removal
+    metadataMap:
+      zone: india  # Zone-awareness

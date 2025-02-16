@@ -1,0 +1,3 @@
+account:
+ service:
+   name: 'Hello from Account service config file' 
