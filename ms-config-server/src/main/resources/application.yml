@@ -8,5 +8,5 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/ps1437/microservice-design-pattern.git
-          search-paths: ms-gateway-external-config/config-repo
+          uri: https://github.com/ps1437/ms-design-patterns.git
+          search-paths: banking-microservices/config-repo
