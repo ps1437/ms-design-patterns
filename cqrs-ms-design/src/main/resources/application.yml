@@ -1,0 +1,44 @@
+spring:
+  application:
+    name: "cqrs-ms-design"
+  datasource:
+    url: jdbc:h2:mem:testdb  # In-memory database
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true  # Enables the H2 web console
+      path: /h2-console  # Access via http://localhost:8080/h2-console
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update  # Creates tables automatically
+    show-sql: true  # Enables SQL query logging
+
+
+axon:
+  serializer:
+    general: jackson
+    events: jackson
+
+
+  axonserver:
+    servers: localhost:8124
+  eventhandling:
+    processors:
+      TRACKING:
+        MODE: SUBSCRIBING
+  distributed:
+    enabled: false
+
+logging:
+  level:
+    org.axonframework: DEBUG
+    io.axoniq.axonserver.connector: DEBUG
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    path: /swagger-ui.html
