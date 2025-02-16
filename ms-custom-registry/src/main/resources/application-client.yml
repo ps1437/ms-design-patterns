@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: client-service
+  config:
+    activate:
+      on-profile: client
+
+server:
+  port: 8084
+
+service-registry:
+  url: http://localhost:8761/registry
+
+client:
+  ip-address: localhost
+  name: client-service
+  heartbeat-interval: 30s
