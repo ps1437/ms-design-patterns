@@ -14,6 +14,7 @@
         <th>Host</th>
         <th>Port</th>
         <th>Status</th>
+        <th>Actions</th>
     </tr>
     </thead>
     <tbody>
@@ -32,6 +33,11 @@
         </td>
         <td th:each="service : ${serviceList}">
             <span class="badge bg-success">UP</span>
+        </td>
+        <td th:each="service : ${serviceList}">
+            <a th:href="'http://' + ${service.host} + ':' + ${service.port}" class="btn btn-info btn-sm">
+                Connect
+            </a>
         </td>
     </tr>
     </tbody>
