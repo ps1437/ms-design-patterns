@@ -32,4 +32,15 @@ public class RegistryController {
     public Collection<List<ServiceInstance>> discover() {
         return serviceRegistry.getAllServices();
     }
+
+    @GetMapping("/get-service-url/{serviceName}")
+    public String getServiceUrl(@PathVariable String serviceName) {
+        String url = serviceRegistry.getServiceUrl(serviceName);
+        if (url != null) {
+            return "Service URL: " + url;
+        } else {
+            return "Service not found!";
+        }
+    }
+
 }

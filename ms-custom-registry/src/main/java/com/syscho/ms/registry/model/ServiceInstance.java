@@ -75,4 +75,16 @@ public class ServiceInstance {
     public void setLastHeartbeat(Instant lastHeartbeat) {
         this.lastHeartbeat = lastHeartbeat;
     }
+
+    @Override
+    public String toString() {
+        return "ServiceInstance{" +
+                "serviceName='" + serviceName + '\'' +
+                ", instanceId='" + instanceId + '\'' +
+                ", host='" + host + '\'' +
+                ", port=" + port +
+                ", isHealthy=" + isHealthy +
+                ", lastHeartbeat=" + lastHeartbeat +
+                '}';
+    }
 }
