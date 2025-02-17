@@ -8,10 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Service
@@ -32,11 +29,23 @@ public class ServiceRegistry {
         });
     }
 
-    public void heartbeat(String instanceId) {
+    public void heartbeat(ServiceInstance requestServiceInstance) {
+
+        if (registry.isEmpty()) {
+            register(requestServiceInstance);
+            return;
+        }
+
         registry.forEach((serviceName, instances) -> {
-            instances.stream()
-                    .filter(service -> service.getInstanceId().equals(instanceId))
-                    .forEach(ServiceInstance::updateHeartbeat);
+            Optional<ServiceInstance> instanceOptional = instances.stream()
+                    .filter(service -> service.getInstanceId().equals(requestServiceInstance.getInstanceId()))
+                    .findFirst();
+
+            if (instanceOptional.isPresent()) {
+                instanceOptional.get().updateHeartbeat();
+            } else {
+                register(requestServiceInstance);
+            }
         });
     }
 
@@ -57,4 +66,14 @@ public class ServiceRegistry {
     public Collection<List<ServiceInstance>> getAllServices() {
         return registry.values();
     }
+
+    public String getServiceUrl(String serviceName) {
+        List<ServiceInstance> instances = registry.get(serviceName);
+        if (instances != null && !instances.isEmpty()) {
+            ServiceInstance serviceInstance = instances.get(0);
+            return serviceInstance.getHost() + ":" + serviceInstance.getPort();
+        }
+        return null;
+    }
+
 }
