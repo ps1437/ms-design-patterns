@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: gateway-service
+
+server:
+  port: 8084
+
+service-registry:
+  url: http://localhost:8080/registry
+
+client:
+  ip-address: localhost
+  name: ${spring.application.name}
+  heartbeat-interval: 30s
