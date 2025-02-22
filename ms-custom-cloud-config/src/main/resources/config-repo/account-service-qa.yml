@@ -1,0 +1,5 @@
+account:
+  service:
+    name: 'from account-service-qa !!!'
+  service2:
+    name: 'from account-service-qa 2!!!'

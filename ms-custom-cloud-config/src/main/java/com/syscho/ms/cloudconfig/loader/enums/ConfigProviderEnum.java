@@ -1,11 +1,11 @@
-package com.syscho.ms.cloudconfig.loader;
+package com.syscho.ms.cloudconfig.loader.enums;
 
-public enum ConfigSourceType {
+public enum ConfigProviderEnum {
 
     GITHUB, FILESYSTEM;
 
-    public static ConfigSourceType fromString(String value) {
-        for (ConfigSourceType type : values()) {
+    public static ConfigProviderEnum fromString(String value) {
+        for (ConfigProviderEnum type : values()) {
             if (type.name().equalsIgnoreCase(value)) {
                 return type;
             }
