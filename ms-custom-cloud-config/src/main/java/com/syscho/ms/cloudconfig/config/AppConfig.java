@@ -1,6 +1,6 @@
 package com.syscho.ms.cloudconfig.config;
 
-import com.syscho.ms.cloudconfig.loader.ConfigProviderEnum;
+import com.syscho.ms.cloudconfig.loader.enums.ConfigProviderEnum;
 import com.syscho.ms.cloudconfig.loader.FileLoader;
 import com.syscho.ms.cloudconfig.loader.FileSystemLoaderYML;
 import com.syscho.ms.cloudconfig.loader.GitHubFileLoader;

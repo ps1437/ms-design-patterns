@@ -1,4 +1,4 @@
-# Microservice Design Patterns
+## Microservice Design Patterns
 
 This repository demonstrates various **microservice design patterns** using **Spring Boot, Spring Cloud, and Java**. It covers essential architectural patterns such as **CQRS, API Gateway, Service Registry, Config Server, and more**.
 
