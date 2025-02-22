@@ -3,6 +3,7 @@ package com.syscho.ms.cloudconfig.loader;
 import com.syscho.ms.cloudconfig.config.ConfigProperties;
 import com.syscho.ms.cloudconfig.cache.ConfigCacheManager;
 import com.syscho.ms.cloudconfig.watcher.FileWatcherService;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

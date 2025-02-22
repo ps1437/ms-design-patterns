@@ -105,7 +105,63 @@ management:
 5. **Rate Limiting & Circuit Breaker**: Prevents excessive load on backend services.
 
 ---
+## Spring Cloud API Gateway - Useful Links & Endpoints
 
+## 🚀 Actuator Endpoints for API Gateway
+
+### 1️⃣ Get All Routes
+```http
+GET http://localhost:8085/actuator/gateway/routes
+```
+🔹 Returns details of all configured routes.
+
+### 2️⃣ Get Specific Route by ID
+```http
+GET http://localhost:8085/actuator/gateway/routes/{routeId}
+```
+🔹 Replace `{routeId}` with the actual route ID to fetch details.
+
+### 3️⃣ Refresh Routes
+```http
+POST http://localhost:8085/actuator/gateway/refresh
+```
+🔹 Forces API Gateway to reload route configurations.
+
+### 4️⃣ Get Global Filters
+```http
+GET http://localhost:8085/actuator/gateway/globalfilters
+```
+🔹 Lists all global filters applied to API Gateway.
+
+### 5️⃣ Get Route-Specific Filters
+```http
+GET http://localhost:8085/actuator/gateway/routefilters
+```
+🔹 Shows filters applied to individual routes.
+
+### 6️⃣ View Service Registry (If Enabled)
+```http
+GET http://localhost:8085/actuator/serviceregistry
+```
+🔹 Displays registered services in **Eureka/Consul/Nacos**, if applicable.
+
+---
+## 🔧 Enable Actuator in `application.yml`
+```yaml
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    gateway:
+      enabled: true
+```
+
+For more detailed configurations, refer to the [Spring Cloud Gateway Documentation](https://docs.spring.io/spring-cloud-gateway/docs/current/reference/html/).
+
+
+---
 ## Official Documentation & References
 - 🔗 [Spring Cloud Gateway Documentation](https://docs.spring.io/spring-cloud-gateway/docs/current/reference/html/)
 - 🔗 [Spring Cloud Eureka Documentation](https://cloud.spring.io/spring-cloud-netflix/multi/multi_spring-cloud-eureka-server.html)
