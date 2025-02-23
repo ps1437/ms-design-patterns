@@ -31,8 +31,7 @@ public class FileWatcherService implements WatcherService {
                     for (WatchEvent<?> event : key.pollEvents()) {
                         if (event.kind() == StandardWatchEventKinds.ENTRY_MODIFY) {
                             Path changedFile = directory.resolve((Path) event.context());
-                            log.warn("Configuration file changed: " + changedFile);
-
+                            log.warn("Configuration file changed: {}", changedFile);
                             //removed the file from cache so that it will be reloaded from file system
                             String cachedKey = changedFile.getFileName().toString().split("\\.")[0];
                             cacheManager.remove(cachedKey);

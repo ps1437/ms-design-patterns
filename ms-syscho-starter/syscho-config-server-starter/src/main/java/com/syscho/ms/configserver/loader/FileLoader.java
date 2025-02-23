@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.syscho.ms.configserver.cache.ConfigCacheManager;
+import com.syscho.ms.configserver.config.ConfigProperties;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
@@ -20,9 +21,11 @@ public abstract class FileLoader {
     protected final String DEFAULT_PROFILE = "default";
     private final ObjectMapper YAML_MAPPER = new ObjectMapper(new YAMLFactory());
     private final ConfigCacheManager cacheManager;
+    private final ConfigProperties configProperties;
 
-    public FileLoader(ConfigCacheManager cacheManager) {
+    public FileLoader(ConfigCacheManager cacheManager, ConfigProperties configProperties) {
         this.cacheManager = cacheManager;
+        this.configProperties = configProperties;
     }
 
     protected Map<String, Object> loadAndCreatePropertySource(Path filePath) throws IOException {
@@ -32,8 +35,6 @@ public abstract class FileLoader {
         Map<String, Object> source = readYamlFile(filePath);
         return Map.of("name", filePath.toString(), "source", source);
     }
-
-    protected abstract Path getDirectoryPath();
 
     private Map<String, Object> readYamlFile(Path filePath) throws IOException {
         File file = filePath.toFile();
@@ -60,7 +61,7 @@ public abstract class FileLoader {
     protected Map<String, Object> loadPropertySources(String fileName, String profile) {
         List<Map<String, Object>> propertySources = new LinkedList<>();
 
-        Path directoryPath = getDirectoryPath();
+        Path directoryPath = configProperties.getDirectoryPath();
         addIfExists(propertySources, directoryPath.resolve(DEFAULT_APPLICATION_YML)); // application.yml
 
         if (!"application".equalsIgnoreCase(fileName)) {

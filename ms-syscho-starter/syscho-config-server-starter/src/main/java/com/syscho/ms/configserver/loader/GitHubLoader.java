@@ -10,8 +10,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Map;
 import java.util.Objects;
 
@@ -21,15 +19,11 @@ import java.util.Objects;
 public class GitHubLoader extends FileLoader {
 
     private final ConfigProperties configProperties;
-    private final ConfigCacheManager cacheManager;
-    private final Path repoDirectory;
 
-    public GitHubLoader(ConfigCacheManager cacheManager, ConfigProperties configProperties , WatcherService githubWatcher) {
-        super(cacheManager);
-        this.cacheManager = cacheManager;
+    public GitHubLoader(ConfigCacheManager cacheManager, ConfigProperties configProperties, WatcherService githubWatcher) {
+        super(cacheManager, configProperties);
         this.configProperties = configProperties;
-        this.repoDirectory = getClonedPath();
-        githubWatcher.watch(repoDirectory,cacheManager);
+        githubWatcher.watch(configProperties.getDirectoryPath(), cacheManager);
     }
 
     @Override
@@ -43,10 +37,6 @@ public class GitHubLoader extends FileLoader {
         return loadFile(filename, DEFAULT_PROFILE);
     }
 
-    @Override
-    protected Path getDirectoryPath() {
-        return repoDirectory.resolve(configProperties.getFolderPath());
-    }
 
     @Override
     public void clearCache() {
@@ -58,8 +48,7 @@ public class GitHubLoader extends FileLoader {
     private void cloneOrUpdateRepo() {
         Objects.requireNonNull(configProperties, "configProperties should not be null");
         Objects.requireNonNull(configProperties.getPath(), "Git repository path is required");
-
-        File targetDir = repoDirectory.toFile();
+        File targetDir = configProperties.getDirectoryPath().toFile();
         log.info("Git repository directory: {}", targetDir.getPath());
 
         try {
@@ -72,30 +61,11 @@ public class GitHubLoader extends FileLoader {
                         .call()
                         .close();
                 log.info("Repository cloned successfully.");
-            } else {
-//                log.info("Pulling latest changes from Git...");
-//                try (Git git = Git.open(targetDir)) {
-//                    git.pull().call();
-//                }
             }
         } catch (GitAPIException e) {
             log.error("Error accessing Git repository: ", e);
         }
     }
 
-    private Path getClonedPath() {
-        String repoName = extractRepoName(configProperties.getPath());
-        if (repoName == null) {
-            throw new IllegalArgumentException("Invalid Git repository URL format: " + configProperties.getPath());
-        }
-        return Paths.get(System.getProperty("user.home"), repoName);
-    }
-
-    private static String extractRepoName(String gitUrl) {
-        if (gitUrl == null || !gitUrl.endsWith(".git")) {
-            return null;
-        }
-        return gitUrl.substring(gitUrl.lastIndexOf('/') + 1, gitUrl.length() - 4);
-    }
 
 }
