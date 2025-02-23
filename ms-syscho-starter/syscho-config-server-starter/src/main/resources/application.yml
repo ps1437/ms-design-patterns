@@ -1,0 +1,23 @@
+server:
+  port : 8888
+
+spring:
+  application:
+    name: configserver
+
+#config:
+#  server:
+#    provider: GITHUB
+#    path: "https://github.com/ps1437/ms-design-patterns.git"
+#    folderPath: "banking-microservices/config-repo"
+#    default-label: main
+#    refresh-enabled: true
+
+
+config:
+  server:
+    provider: FILESYSTEM
+    path: "C:/Users/praveen_soni/ms-design-patterns/banking-microservices/config-repo"
+   # folderPath: "banking-microservices/config-repo"
+   # default-label: main
+   # refresh-enabled: true
