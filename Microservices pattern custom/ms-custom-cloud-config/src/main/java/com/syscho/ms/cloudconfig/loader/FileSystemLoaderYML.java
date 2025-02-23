@@ -1,69 +1,42 @@
 package com.syscho.ms.cloudconfig.loader;
 
-import com.syscho.ms.cloudconfig.config.ConfigProperties;
 import com.syscho.ms.cloudconfig.cache.ConfigCacheManager;
-import com.syscho.ms.cloudconfig.watcher.FileWatcherService;
-
+import com.syscho.ms.cloudconfig.config.ConfigProperties;
+import com.syscho.ms.cloudconfig.loader.watcher.FileWatcherService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
+@ConditionalOnProperty(name = "config.server.provider", havingValue = "FILESYSTEM")
 @Service
 @Slf4j
-public class FileSystemLoaderYML implements FileLoader {
+public class FileSystemLoaderYML extends FileLoader {
 
-    private final Path directoryPath;
-    private final ConfigCacheManager cacheManager;
+    private final ConfigProperties configProperties;
 
     public FileSystemLoaderYML(ConfigProperties configProperties, ConfigCacheManager cacheManager, FileWatcherService fileWatcherService) {
-        this.directoryPath = Paths.get(Objects.requireNonNull(configProperties.getPath(), "Path is required"));
-        this.cacheManager = cacheManager;
-      //  fileWatcherService.watch(directoryPath, cacheManager);
+        super(cacheManager);
+        this.configProperties = configProperties;
+        fileWatcherService.watch(getDirectoryPath(), cacheManager);
+    }
+
+    @Override
+    protected Path getDirectoryPath() {
+        return Paths.get(configProperties.getPath());
     }
 
     @Override
     public Map<String, Object> loadFile(String fileName, String profile) {
-        String cacheKey = FileLoader.getCacheKey(fileName, profile);
-        return cacheManager.getOrLoad(cacheKey, () -> loadPropertySources(fileName, profile));
+        return loadPropertySources(fileName, profile);
     }
 
     @Override
     public Map<String, Object> loadFile(String filename) {
         return loadFile(filename, DEFAULT_PROFILE);
     }
-
-    @Override
-    public void refresh() {
-        cacheManager.clearCache();
-    }
-
-
-    private Map<String, Object> loadPropertySources(String fileName, String profile) {
-        log.info("Loading from file System !!");
-        List<Map<String, Object>> propertySources = new LinkedList<>();
-
-        addIfExists(propertySources, directoryPath.resolve(DEFAULT_APPLICATION_YML)); // application.yml
-
-        if (!"application".equalsIgnoreCase(fileName)) {
-            addIfExists(propertySources, directoryPath.resolve(fileName + ".yml")); // {service-name}.yml
-        }
-
-        addIfExists(propertySources, directoryPath.resolve(fileName + "-" + profile + EXTENSION_YML)); //{service-name-{profile}}.yml
-
-        return FileLoader.createPropertySourcesMap(fileName, profile, propertySources);
-    }
-
-    private void addIfExists(List<Map<String, Object>> propertySources, Path filePath) {
-        if (filePath.toFile().exists()) {
-            propertySources.add(FileLoader.createPropertySource(filePath));
-        }
-    }
-
 
 }

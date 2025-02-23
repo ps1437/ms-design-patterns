@@ -1,4 +1,4 @@
-package com.syscho.ms.cloudconfig.watcher;
+package com.syscho.ms.cloudconfig.loader.watcher;
 
 import com.syscho.ms.cloudconfig.cache.ConfigCacheManager;
 
