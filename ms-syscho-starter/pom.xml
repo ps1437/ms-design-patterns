@@ -22,6 +22,8 @@
         <module>syscho-registry-server-starter</module>
         <module>syscho-gateway-starter</module>
         <module>syscho-loadbalancer-starter</module>
+        <module>syscho-config-server-starter</module>
+        <module>syscho-config-client-starter</module>
     </modules>
 
     <properties>
