@@ -81,7 +81,7 @@ public class GithubWatcher implements WatcherService {
     }
 
     private void cloneRepository(File repoDir) {
-        try (Git git = Git.cloneRepository()
+        try (Git ignored = Git.cloneRepository()
                 .setURI(configProperties.getPath())
                 .setDirectory(repoDir)
                 .setBranch(configProperties.getDefaultLabel())

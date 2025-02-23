@@ -2,14 +2,11 @@ package com.syscho.ms.configserver.loader;
 
 import com.syscho.ms.configserver.cache.ConfigCacheManager;
 import com.syscho.ms.configserver.config.ConfigProperties;
-import com.syscho.ms.configserver.loader.watcher.FileWatcherService;
 import com.syscho.ms.configserver.loader.watcher.WatcherService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Map;
 
 @ConditionalOnProperty(name = "config.server.provider", havingValue = "FILESYSTEM")
@@ -17,17 +14,9 @@ import java.util.Map;
 @Slf4j
 public class FileSystemLoaderYML extends FileLoader {
 
-    private final ConfigProperties configProperties;
-
     public FileSystemLoaderYML(ConfigProperties configProperties, ConfigCacheManager cacheManager, WatcherService watcherService) {
-        super(cacheManager);
-        this.configProperties = configProperties;
-        watcherService.watch(getDirectoryPath(), cacheManager);
-    }
-
-    @Override
-    protected Path getDirectoryPath() {
-        return Paths.get(configProperties.getPath());
+        super(cacheManager, configProperties);
+        watcherService.watch(configProperties.getDirectoryPath(), cacheManager);
     }
 
     @Override
