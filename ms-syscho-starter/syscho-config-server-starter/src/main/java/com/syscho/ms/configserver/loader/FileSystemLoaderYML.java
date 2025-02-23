@@ -1,8 +1,9 @@
-package com.syscho.config.loader;
+package com.syscho.ms.configserver.loader;
 
-import com.syscho.ms.cloudconfig.cache.ConfigCacheManager;
-import com.syscho.ms.cloudconfig.config.ConfigProperties;
-import com.syscho.ms.cloudconfig.loader.watcher.FileWatcherService;
+import com.syscho.ms.configserver.cache.ConfigCacheManager;
+import com.syscho.ms.configserver.config.ConfigProperties;
+import com.syscho.ms.configserver.loader.watcher.FileWatcherService;
+import com.syscho.ms.configserver.loader.watcher.WatcherService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
@@ -18,10 +19,10 @@ public class FileSystemLoaderYML extends FileLoader {
 
     private final ConfigProperties configProperties;
 
-    public FileSystemLoaderYML(ConfigProperties configProperties, ConfigCacheManager cacheManager, FileWatcherService fileWatcherService) {
+    public FileSystemLoaderYML(ConfigProperties configProperties, ConfigCacheManager cacheManager, WatcherService watcherService) {
         super(cacheManager);
         this.configProperties = configProperties;
-        fileWatcherService.watch(getDirectoryPath(), cacheManager);
+        watcherService.watch(getDirectoryPath(), cacheManager);
     }
 
     @Override

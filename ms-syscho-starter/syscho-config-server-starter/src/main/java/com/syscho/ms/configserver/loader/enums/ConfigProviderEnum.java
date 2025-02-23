@@ -1,4 +1,4 @@
-package com.syscho.config.loader.enums;
+package com.syscho.ms.configserver.loader.enums;
 
 public enum ConfigProviderEnum {
 

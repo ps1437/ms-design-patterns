@@ -1,19 +1,16 @@
-package com.syscho.config.loader;
+package com.syscho.ms.configserver.loader;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import com.syscho.ms.cloudconfig.cache.ConfigCacheManager;
+import com.syscho.ms.configserver.cache.ConfigCacheManager;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Slf4j
 public abstract class FileLoader {
@@ -47,11 +44,15 @@ public abstract class FileLoader {
         });
     }
 
-    Map<String, Object> createPropertySourcesMap(String fileName, String profile, List<Map<String, Object>> propertySources) {
-        return Map.of("name", fileName, "profiles", Collections.singletonList(profile), "propertySources", propertySources);
+    private Map<String, Object> createPropertySourcesMap(String fileName, String profile, List<Map<String, Object>> propertySources) {
+        Map<String, Object> orderedMap = new LinkedHashMap<>();
+        orderedMap.put("name", fileName);
+        orderedMap.put("profiles", Collections.singletonList(profile));
+        orderedMap.put("propertySources", propertySources);
+        return orderedMap;
     }
 
-    String getCacheKey(Path filePath) {
+    private String getCacheKey(Path filePath) {
         return filePath.getFileName().toString().split("\\.")[0];
     }
 
@@ -93,6 +94,5 @@ public abstract class FileLoader {
     public abstract Map<String, Object> loadFile(String filename, String profile) throws IOException;
 
     public abstract Map<String, Object> loadFile(String filename) throws IOException;
-
 
 }

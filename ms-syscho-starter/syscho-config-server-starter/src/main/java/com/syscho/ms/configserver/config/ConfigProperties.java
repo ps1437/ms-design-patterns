@@ -1,6 +1,6 @@
-package com.syscho.config.config;
+package com.syscho.ms.configserver.config;
 
-import com.syscho.ms.cloudconfig.loader.enums.ConfigProviderEnum;
+import com.syscho.ms.configserver.loader.enums.ConfigProviderEnum;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;

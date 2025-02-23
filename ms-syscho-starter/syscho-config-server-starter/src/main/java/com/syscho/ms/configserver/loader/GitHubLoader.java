@@ -1,8 +1,8 @@
-package com.syscho.config.loader;
+package com.syscho.ms.configserver.loader;
 
-import com.syscho.ms.cloudconfig.cache.ConfigCacheManager;
-import com.syscho.ms.cloudconfig.config.ConfigProperties;
-import com.syscho.ms.cloudconfig.loader.watcher.GithubWatcher;
+import com.syscho.ms.configserver.cache.ConfigCacheManager;
+import com.syscho.ms.configserver.config.ConfigProperties;
+import com.syscho.ms.configserver.loader.watcher.WatcherService;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
@@ -24,7 +24,7 @@ public class GitHubLoader extends FileLoader {
     private final ConfigCacheManager cacheManager;
     private final Path repoDirectory;
 
-    public GitHubLoader(ConfigCacheManager cacheManager, ConfigProperties configProperties ,GithubWatcher githubWatcher) {
+    public GitHubLoader(ConfigCacheManager cacheManager, ConfigProperties configProperties , WatcherService githubWatcher) {
         super(cacheManager);
         this.cacheManager = cacheManager;
         this.configProperties = configProperties;

@@ -1,0 +1,11 @@
+#spring:
+#  application:
+#    name: account-service
+#  profiles:
+#    active: qa
+#config:
+#  server-url: "http://localhost:8888"
+#
+#account:
+#  service:
+#    name: Config-server-test

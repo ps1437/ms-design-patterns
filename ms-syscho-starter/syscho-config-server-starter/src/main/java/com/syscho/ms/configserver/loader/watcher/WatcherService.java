@@ -1,6 +1,7 @@
-package com.syscho.config.loader.watcher;
+package com.syscho.ms.configserver.loader.watcher;
 
-import com.syscho.ms.cloudconfig.cache.ConfigCacheManager;
+
+import com.syscho.ms.configserver.cache.ConfigCacheManager;
 
 import java.nio.file.Path;
 

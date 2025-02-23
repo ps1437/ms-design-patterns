@@ -1,4 +1,4 @@
-package com.syscho.config.cache;
+package com.syscho.ms.configserver.cache;
 
 import org.springframework.stereotype.Component;
 

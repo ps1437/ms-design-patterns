@@ -1,4 +1,4 @@
-package com.syscho.config;
+package com.syscho.ms.configserver;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

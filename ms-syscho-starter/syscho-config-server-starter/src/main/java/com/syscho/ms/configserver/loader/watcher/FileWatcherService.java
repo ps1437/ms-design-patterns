@@ -1,6 +1,6 @@
-package com.syscho.config.loader.watcher;
+package com.syscho.ms.configserver.loader.watcher;
 
-import com.syscho.ms.cloudconfig.cache.ConfigCacheManager;
+import com.syscho.ms.configserver.cache.ConfigCacheManager;
 import jakarta.annotation.PreDestroy;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

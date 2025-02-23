@@ -1,7 +1,7 @@
-package com.syscho.config.loader.watcher;
+package com.syscho.ms.configserver.loader.watcher;
 
-import com.syscho.ms.cloudconfig.cache.ConfigCacheManager;
-import com.syscho.ms.cloudconfig.config.ConfigProperties;
+import com.syscho.ms.configserver.cache.ConfigCacheManager;
+import com.syscho.ms.configserver.config.ConfigProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
