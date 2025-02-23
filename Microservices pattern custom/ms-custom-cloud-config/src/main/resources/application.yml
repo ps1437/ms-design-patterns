@@ -5,9 +5,19 @@ spring:
   application:
     name: configserver
 
+#config:
+#  server:
+#    provider: GITHUB
+#    path: "https://github.com/ps1437/ms-design-patterns.git"
+#    folderPath: "banking-microservices/config-repo"
+#    default-label: main
+#    refresh-enabled: true
+
+
 config:
   server:
-    type: FILESYSTEM
-    path: "C:\\praveeen\\preperation\\ms-design\\ms-custom-cloud-config\\ms-custom-cloud-config\\src\\main\\resources\\config-repo"
-    default-label: main
-    refresh-enabled: true
+    provider: FILESYSTEM
+    path: "C:/Users/praveen_soni/ms-design-patterns/banking-microservices/config-repo"
+   # folderPath: "banking-microservices/config-repo"
+   # default-label: main
+   # refresh-enabled: true

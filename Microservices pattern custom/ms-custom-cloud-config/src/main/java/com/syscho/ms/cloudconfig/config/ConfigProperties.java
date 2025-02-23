@@ -11,8 +11,9 @@ import org.springframework.context.annotation.Configuration;
 @Getter
 @Setter
 public class ConfigProperties {
-    private ConfigProviderEnum type;
+    private ConfigProviderEnum provider;
     private String path;
+    private String folderPath;
     private String defaultLabel;
     private boolean refreshEnabled;
 }

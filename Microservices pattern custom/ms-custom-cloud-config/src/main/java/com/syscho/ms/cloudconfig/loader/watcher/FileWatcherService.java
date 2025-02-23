@@ -1,8 +1,9 @@
-package com.syscho.ms.cloudconfig.watcher;
+package com.syscho.ms.cloudconfig.loader.watcher;
 
 import com.syscho.ms.cloudconfig.cache.ConfigCacheManager;
 import jakarta.annotation.PreDestroy;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -11,6 +12,7 @@ import java.nio.file.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+@ConditionalOnProperty(name = "config.server.provider", havingValue = "FILESYSTEM")
 @Service
 @Slf4j
 public class FileWatcherService implements WatcherService {

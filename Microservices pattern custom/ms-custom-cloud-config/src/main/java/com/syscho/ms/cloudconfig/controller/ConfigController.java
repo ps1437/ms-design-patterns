@@ -37,7 +37,7 @@ public class ConfigController {
     @Operation(summary = "Refresh Cache")
     @GetMapping("/refresh")
     public ResponseEntity<String> refresh() {
-        fileLoader.refresh();
+        fileLoader.clearCache();
         return ResponseEntity.ok("success");
     }
 
